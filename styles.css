@@ -1,0 +1,33 @@
+.container {
+  padding: 15px;
+  margin: 25px;
+}
+
+#button-addon2 {
+  background-color: cornflowerblue;
+  color: white;
+}
+
+.citysearch {
+  margin: 15px;
+}
+
+#citydisplay {
+  padding: 15px;
+  margin: 25px;
+}
+
+.left {
+  width: 10px;
+}
+
+.currentCity {
+  padding: 15px;
+  margin: 20px;
+  border: solid black 1px;
+}
+
+.card-body {
+  background-color: cornflowerblue;
+  color: white;
+}
