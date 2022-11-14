@@ -1,5 +1,4 @@
 var APIKey = "6561d55b38895db2712787639eb1bdd9";
-var city;
 var searchinput = document.getElementById("searchcityinput");
 var btnsearch = document.getElementById("button-addon2");
 var lat;
@@ -14,8 +13,6 @@ function click() {
   getApi(city);
   console.log(city);
 }
-
-//render the data object to html elements. data.current.wind or temp etc
 
 //lat & long to get: reqeust to url to get lat & lon and then run another reuqest to get the weather
 var convertLatLon =
@@ -38,28 +35,29 @@ function getApi(latLon) {
   });
 }
 
-//find out what needs to be here for sure
-var requestUrl =
-  "api.openweathermap.org/geo/1.0/direct?q=" + city + "&appid=" + APIKey;
+//Not working correctly
 
 function getApi(city) {
   console.log(city);
-  fetch(requestUrl).then(function (response) {
-    if (response.ok) {
-      response.json().then(function (data) {
-        console.log(data);
-        var currentdaysdata = getElementById();
-        currentdaysdata.textContent = data.current.temp;
-        currentdaysdata.textContent = data.current.wind;
-        currentdaysdata.textContent = data.current.humidty;
-        displayWeather();
-      });
-    }
-  });
+  var requestUrl =
+    "http://api.openweathermap.org/data/2.5/weather?q=" +
+    city +
+    "&appid=" +
+    APIKey;
+  var city = searchinput.value;
 
-  function displayWeather() {
-    console.log("display weather");
-  }
+  fetch(requestUrl)
+    .then(function (response) {
+      return response.json();
+    })
+    .then(function (data) {
+      console.log(data);
+      var currentdaysdata = document.getElementById("currentdaysdata");
+      currentdaysdata.textContent = data.current.temp;
+      currentdaysdata.textContent = data.current.wind;
+      currentdaysdata.textContent = data.current.humidty;
+      displayWeather();
+    });
 }
 
 // getApi(requestUrl);
