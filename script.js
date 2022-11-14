@@ -22,7 +22,7 @@ function getApi(city) {
     "http://api.openweathermap.org/data/2.5/weather?q=" +
     city +
     "&appid=" +
-    APIKey;
+    config;
   var city = searchinput.value;
 
   fetch(requestUrl)
