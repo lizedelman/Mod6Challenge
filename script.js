@@ -13,6 +13,7 @@ var currentIcon = document.getElementById("dailyIcon");
 var searchHistory = document.getElementById("searchHistory");
 var historyTitle = document.getElementById("historyTitle");
 var weather = {};
+var titleHist = false;
 
 btnsearch.addEventListener("click", click);
 function click() {
@@ -41,10 +42,6 @@ function getApi(city) {
       console.log(data);
       weather.name = data.city.name;
       weather.data = data.list;
-      // var currentdaysdata = getElementById("currentdaysdata");
-      // currentdaysdata.textContent = data.current.temp;
-      // currentdaysdata.textContent = data.current.wind;
-      // currentdaysdata.textContent = data.current.humidty;
       displayWeather();
     });
 }
@@ -69,35 +66,15 @@ function displayWeather() {
   currentWindEel.textContent = `Wind-Speed: ${weather.data[0].wind.speed}mph`;
   //need to add icons to library
   // currentIcon.textContent = `<img src="./Assets/Icons/${weather.data[0].weather[0].icon}.png" />`;
-
-  //Not working yet
-  if (titleHist === false) var title = document.getElementById("historyTitle");
-  title.textContent = `<p>This is your search history:</p>`;
-  titleHistory.append(title);
-  titleHist = true;
 }
-var history = document.getElementById("searchhistory");
-history.textContent = window.localStorage.getItem("history");
+
+//Not working yet
+//   if (titleHist === false) {
+//   var titleHist = document.getElementById("historydiv");
+//   titleHist.textContent = `<p>This is your search history:</p>`;
+//   titleHist = true;
+// }
+// var history = document.getElementById("searchhistory");
+// history.textContent = window.localStorage.getItem("history");
 
 // getApi(requestUrl);
-
-// Don't think I need this
-// var convertLatLon =
-//   "http://api.openweathermap.org/geo/1.0/direct?q=" +
-//   lat +
-//   "&" +
-//   lon +
-//   "&appid=" +
-//   APIKey;
-
-// function getApi(latLon) {
-//   console.log(latLon);
-//   fetch(convertLatLon).then(function (response) {
-//     if (response.ok) {
-//       var city = response.json().then(function (data) {
-//         console.log(data);
-//         getApi(city);
-//       });
-//     }
-//   });
-// }
