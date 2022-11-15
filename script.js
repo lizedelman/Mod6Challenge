@@ -22,6 +22,7 @@ function click() {
   var city = searchinput.value;
   getApi(city);
   console.log(city);
+
   window.localStorage.setItem("history", JSON.stringify(city));
 }
 
@@ -43,6 +44,7 @@ function getApi(city) {
       weather.name = data.city.name;
       weather.data = data.list;
       displayWeather();
+      searchinput.value = "";
     });
 }
 
@@ -66,6 +68,20 @@ function displayWeather() {
   currentWindEel.textContent = `Wind-Speed: ${weather.data[0].wind.speed}mph`;
   //need to add icons to library
   // currentIcon.textContent = `<img src="./Assets/Icons/${weather.data[0].weather[0].icon}.png" />`;
+
+  //Puts the previously searched cities in the lefthand column
+  if (titleHist === false) {
+    var title = document.createElement("div");
+    title.textContent = `Search history:`;
+    historyTitle.append(title);
+    titleHist = true;
+  }
+  var history = document.createElement("div");
+  history.textContent = `${window.localStorage
+    .getItem("history")
+    .split('"')
+    .join("")}`;
+  searchHistory.append(history);
 }
 
 //Not working yet
