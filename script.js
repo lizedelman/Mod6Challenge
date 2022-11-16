@@ -12,6 +12,10 @@ var currentDescription = document.getElementById("description");
 var currentIcon = document.getElementById("dailyIcon");
 var searchHistory = document.getElementById("searchHistory");
 var historyTitle = document.getElementById("historyTitle");
+var dayOne = document.getElementById("dayone");
+var dayOneT = document.getElementById("dayonet");
+var dayOneW = document.getElementById("dayonew");
+var dayOneH = document.getElementById("dayoneh");
 var weather = {};
 var titleHist = false;
 
@@ -43,6 +47,7 @@ function getApi(city) {
       console.log(data);
       weather.name = data.city.name;
       weather.data = data.list;
+      console.log(weather);
       displayWeather();
       searchinput.value = "";
     });
@@ -69,6 +74,14 @@ function displayWeather() {
   //need to add icons to library
   // currentIcon.textContent = `<img src="./Assets/Icons/${weather.data[0].weather[0].icon}.png" />`;
 
+  //To pull 5 day forecast
+  dayOne.textContent = `${weather.data[5].dt}`;
+  dayOneT.textContent = `${Math.floor(
+    ((weather.data[5].main.feels_like - 273) * 9) / 5 + 32
+  )}° F`;
+  dayOneH.textContent = `${weather.data[5].main.humidity}%`;
+  dayOneW.textContent = `${weather.data[5].wind.speed}mph`;
+
   //Puts the previously searched cities in the lefthand column
   if (titleHist === false) {
     var title = document.createElement("div");
@@ -83,14 +96,5 @@ function displayWeather() {
     .join("")}`;
   searchHistory.append(history);
 }
-
-//Not working yet
-//   if (titleHist === false) {
-//   var titleHist = document.getElementById("historydiv");
-//   titleHist.textContent = `<p>This is your search history:</p>`;
-//   titleHist = true;
-// }
-// var history = document.getElementById("searchhistory");
-// history.textContent = window.localStorage.getItem("history");
 
 // getApi(requestUrl);
