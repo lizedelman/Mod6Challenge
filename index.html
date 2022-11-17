@@ -20,7 +20,7 @@
     <div class="container">
       <div class="row">
         <div class="col">
-          <h3>Search for a city:</h3>
+          <h5>Search for a city:</h5>
           <div class="input-group mb-3 citysearch w-auto">
             <input
               type="text"
@@ -38,6 +38,9 @@
               Search
             </button>
           </div>
+          <div class="col bd-highlight mb-3" id="historyTitle">
+            <button class="btn" type="button" id="history-btn"></button>
+          </div>
         </div>
 
         <div class="col-6 bg-light p-3 border" id="currentdaysdata">
@@ -53,37 +56,20 @@
       </div>
 
       <div class="row">
-        <div class="col bd-highlight mb-3" id="historyTitle">
-          <!-- <div id="historyTitle"></div>
-          <div id="searchHistory"></div> -->
-            <button
-              class="btn"
-              type="button"
-              id="history-btn">
-            </button>
+        <div class="container text-sm">
+          <div class="row row-cols-6">
+            <div class="col forecast forecastDays" id="dayone"></div>
+            <div class="col forecast forecastDays" id="daytwo"></div>
+            <div class="col forecast forecastDays" id="daythree"></div>
+            <div class="col forecast forecastDays" id="dayfour"></div>
+            <div class="col forecast forecastDays" id="dayfive"></div>
+          </div>
         </div>
-
-        <div class="col">
-          <div class="row row-cols-1 row-cols-md-5 g-4">
-            <div class="col">
-              <div class="col-6 p-3 forecast">
-              <h5 id="dayone"></h5>
-              <p id="dayonet"></p>
-              <p id="dayoneh"></p>
-              <p id="dayonew"></p>
-            </div>
-
-            <div class="col-6 p-3 forecast">
-              <h5 id="daytwo"></h5>
-              <p id="daytwot"></p>
-              <p id="daytwoh"></p>
-              <p id="daytwow"></p>
-            </div>
       </div>
     </div>
+
     <script src="https://code.jquery.com/jquery-3.4.1.min.js"></script>
     <script type="text/javascript" src="config.js"></script>
     <script src="./script.js"></script>
   </body>
 </html>
-

@@ -1,3 +1,7 @@
+//"previous city" buttons not working - not all previous cities are being stored in local storage
+//fix forecast days text display - all runs together - how to seperate it
+//previous city buttons merged together on display on left side
+
 var config = config.APIKey;
 var searchinput = document.getElementById("searchcityinput");
 var btnsearch = document.getElementById("button-addon2");
@@ -13,32 +17,50 @@ var currentIcon = document.getElementById("dailyIcon");
 var historyBtn = document.getElementById("history-btn");
 var searchHistory = document.getElementById("searchHistory");
 var historyTitle = document.getElementById("historyTitle");
-var dayOne = document.getElementById("dayone");
-var dayOneT = document.getElementById("dayonet");
-var dayOneW = document.getElementById("dayonew");
-var dayOneH = document.getElementById("dayoneh");
+var forecast = document.querySelectorAll(".forecast");
+var forecastDays = document.querySelectorAll(".forecastDays");
+var dayOneEl = document.getElementById("dayone");
+var dayTwoEl = document.getElementById("daytwo");
+var dayThreeEl = document.getElementById("daythree");
+var dayFourEl = document.getElementById("dayfour");
+var dayFiveEl = document.getElementById("dayfive");
 var weather = {};
 var titleHist = false;
+var histList = [];
 
 btnsearch.addEventListener("click", click);
 function click() {
-  //Need to add preventdefault here?
   var searchinput = document.getElementById("searchcityinput");
   var city = searchinput.value;
   getApi(city);
   console.log(city);
+  dayOneEl.textContent = "";
+  dayTwoEl.textContent = "";
+  dayThreeEl.textContent = "";
+  dayFourEl.textContent = "";
+  dayFiveEl.textContent = "";
+  // window.localStorage.setItem("history", JSON.stringify(city));
+  var histCities = JSON.stringify(city);
+  histList.push(histCities);
+  console.log(histList);
 
-  window.localStorage.setItem("history", JSON.stringify(city));
+  localStorage.setItem("data", histList);
 }
 
 historyBtn.addEventListener("click", clickHistory);
 function clickHistory() {
   var histCity = `${window.localStorage
-    .getItem("history")
+    .getItem("histCities")
     .split('"')
     .join("")}`;
   getApi(histCity);
+  console.log(histCity);
   historyBtn = "";
+  dayOneEl.textContent = "";
+  dayTwoEl.textContent = "";
+  dayThreeEl.textContent = "";
+  dayFourEl.textContent = "";
+  dayFiveEl.textContent = "";
 }
 
 function getApi(city) {
@@ -75,23 +97,66 @@ function displayWeather() {
   }
 
   cityNameEl.textContent = `${weather.name}`;
-  currentDay.textContent = `${weather.data[0].dt_txt}`;
-  currentDescription.textContent = `Today: ${weather.data[0].weather[0].description}`;
+  currentDay.textContent = `Today: ${weather.data[0].dt}`;
+  currentDescription.textContent = `Weather: ${weather.data[0].weather[0].description}`;
   currentTempEl.textContent = `Temp: ${Math.floor(
     ((weather.data[0].main.feels_like - 273) * 9) / 5 + 32
   )}° F`;
   currentHumidityEl.textContent = `Humidity: ${weather.data[0].main.humidity}%`;
-  currentWindEel.textContent = `Wind-Speed: ${weather.data[0].wind.speed}mph`;
+  currentWindEel.textContent = `Wind: ${weather.data[0].wind.speed} mph`;
   //need to add icons to library
   // currentIcon.textContent = `<img src="./Assets/Icons/${weather.data[0].weather[0].icon}.png" />`;
 
   //To pull 5 day forecast
-  dayOne.textContent = `${weather.data[5].dt}`;
-  dayOneT.textContent = `${Math.floor(
+  var dayOne = document.createElement("div");
+  dayOne.setAttribute("class", "forecastDays");
+  dayOne.textContent = `${weather.data[5].dt} Temp: ${Math.floor(
     ((weather.data[5].main.feels_like - 273) * 9) / 5 + 32
-  )}° F`;
-  dayOneH.textContent = `${weather.data[5].main.humidity}%`;
-  dayOneW.textContent = `${weather.data[5].wind.speed}mph`;
+  )}° F Humidity: ${weather.data[5].main.humidity}% Wind: ${
+    weather.data[5].wind.speed
+  } mph`;
+  dayOneEl.append(dayOne);
+  dayOneEl.setAttribute("style", "display:block");
+
+  var dayTwo = document.createElement("div");
+  dayTwo.setAttribute("class", "forecastDays");
+  dayTwo.textContent = `${weather.data[14].dt} Temp: ${Math.floor(
+    ((weather.data[14].main.feels_like - 273) * 9) / 5 + 32
+  )}° F Humidity: ${weather.data[5].main.humidity}% Wind: ${
+    weather.data[14].wind.speed
+  } mph`;
+  dayTwoEl.append(dayTwo);
+  dayTwoEl.setAttribute("style", "display:block");
+
+  var dayThree = document.createElement("div");
+  dayThree.setAttribute("class", "forecastDays");
+  dayThree.textContent = `${weather.data[20].dt} Temp: ${Math.floor(
+    ((weather.data[20].main.feels_like - 273) * 9) / 5 + 32
+  )}° F Humidity: ${weather.data[5].main.humidity}% Wind: ${
+    weather.data[20].wind.speed
+  } mph`;
+  dayThreeEl.append(dayThree);
+  dayThreeEl.setAttribute("style", "display:block");
+
+  var dayFour = document.createElement("div");
+  dayFour.setAttribute("class", "forecastDays");
+  dayFour.textContent = `${weather.data[29].dt} Temp: ${Math.floor(
+    ((weather.data[29].main.feels_like - 273) * 9) / 5 + 32
+  )}° F Humidity: ${weather.data[29].main.humidity}% Wind: ${
+    weather.data[29].wind.speed
+  } mph`;
+  dayFourEl.append(dayFour);
+  dayFourEl.setAttribute("style", "display:block");
+
+  var dayFive = document.createElement("div");
+  dayFive.setAttribute("class", "forecastDays");
+  dayFive.textContent = `${weather.data[37].dt} Temp: ${Math.floor(
+    ((weather.data[37].main.feels_like - 273) * 9) / 5 + 32
+  )}° F Humidity: ${weather.data[5].main.humidity}% Wind: ${
+    weather.data[37].wind.speed
+  } mph`;
+  dayFiveEl.append(dayFive);
+  dayFiveEl.setAttribute("style", "display:block");
 
   //Puts the previously searched cities in the lefthand column
   if (titleHist === false) {
@@ -99,13 +164,48 @@ function displayWeather() {
     historyTitle.append(title);
     titleHist = true;
   }
-  var history = document.createElement("div");
-  history.textContent = `${window.localStorage
-    .getItem("history")
-    .split('"')
-    .join("")}`;
-  historyBtn.append(history);
-  historyBtn.setAttribute("style", "display:block");
+  // for (let i = 0; i < histList.length; i++) {
+  //   var history = document.createElement("button");
+  //   history.textContent = `${window.localStorage
+  //     .getItem("data", histList[i])
+  //     .split('"')}`;
+  //   historyBtn.append(history);
+  //   historyBtn.setAttribute("style", "display:block");
+  // }
+
+  function initHistory() {
+    var storedHistory = localStorage.getItem("data", listHist);
+    console.log(storedHistory);
+    if (storedHistory) {
+      var listHist = [];
+      listHist = JSON.parse(storedHistory);
+      console.log(listHist);
+      renderHistory(listHist);
+    }
+  }
+  function renderHistory(listHist) {
+    var title = document.createElement("div");
+
+    title.innerHTML = "";
+    for (let i = 0; i < listHist.length; i++) {
+      var title = document.createElement("div");
+      title.setAttribute("data", listHist[i]);
+      title.textContent = listHist[i];
+      historyTitle.append(title);
+
+      //  history.textContent = `${window.localStorage
+      //    .getItem("data", histList[i])
+      //    .split('"')}`;
+      //  historyBtn.append(history);
+      //  historyBtn.setAttribute("style", "display:block");
+    }
+  }
+  initHistory();
+  // button.addEventListener("click", getApi);
 }
 
 // getApi(requestUrl);
+
+// get the buttons to append to correct Element
+// for each one in the loop setting attributes as we loop 191 - try text content and rdenring an erray to a dynamcially rreated button
+// create click event on those buttons and run getapi on that function

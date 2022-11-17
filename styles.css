@@ -16,7 +16,6 @@
 }
 
 .citysearch {
-  margin: 15px;
 }
 
 #citydisplay {
@@ -37,4 +36,19 @@
 .card-body {
   background-color: cornflowerblue;
   color: white;
+}
+
+.forecastdays,
+.forecast {
+  background-color: rgba(100, 148, 237, 0.6);
+  margin: 10px;
+  padding: 20px;
+  width: fit-content;
+  display: none;
+  font-size: 15px;
+  border-radius: 5%;
+}
+
+#currentdaysdata {
+  margin: 10px;
 }
