@@ -10,6 +10,7 @@ var currentWindEel = document.getElementById("currentwind");
 var currentDay = document.getElementById("today");
 var currentDescription = document.getElementById("description");
 var currentIcon = document.getElementById("dailyIcon");
+var historyBtn = document.getElementById("history-btn");
 var searchHistory = document.getElementById("searchHistory");
 var historyTitle = document.getElementById("historyTitle");
 var dayOne = document.getElementById("dayone");
@@ -28,6 +29,16 @@ function click() {
   console.log(city);
 
   window.localStorage.setItem("history", JSON.stringify(city));
+}
+
+historyBtn.addEventListener("click", clickHistory);
+function clickHistory() {
+  var histCity = `${window.localStorage
+    .getItem("history")
+    .split('"')
+    .join("")}`;
+  getApi(histCity);
+  historyBtn = "";
 }
 
 function getApi(city) {
@@ -85,7 +96,6 @@ function displayWeather() {
   //Puts the previously searched cities in the lefthand column
   if (titleHist === false) {
     var title = document.createElement("div");
-    title.textContent = `Search history:`;
     historyTitle.append(title);
     titleHist = true;
   }
@@ -94,7 +104,8 @@ function displayWeather() {
     .getItem("history")
     .split('"')
     .join("")}`;
-  searchHistory.append(history);
+  historyBtn.append(history);
+  historyBtn.setAttribute("style", "display:block");
 }
 
 // getApi(requestUrl);

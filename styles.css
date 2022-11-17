@@ -8,6 +8,13 @@
   color: white;
 }
 
+#history-btn {
+  background-color: gold;
+  width: fit-content;
+  color: black;
+  display: none;
+}
+
 .citysearch {
   margin: 15px;
 }
