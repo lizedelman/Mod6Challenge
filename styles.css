@@ -15,6 +15,12 @@
   display: none;
 }
 
+.button {
+  background-color: gold;
+  width: 50px;
+  color: black;
+}
+
 .citysearch {
 }
 
