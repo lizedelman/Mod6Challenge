@@ -1,4 +1,4 @@
-var config = config.APIKey;
+var config = 178072d9d277e093ead36bbfe62e0ae2;
 var searchinput = document.getElementById("searchcityinput");
 var btnsearch = document.getElementById("button-addon2");
 var currentdaysdata = document.getElementById("currentdaysdata");
