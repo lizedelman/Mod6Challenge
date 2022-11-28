@@ -10,7 +10,6 @@ var currentWindEel = document.getElementById("currentwind");
 var currentDay = document.getElementById("today");
 var currentDescription = document.getElementById("description");
 var currentIcon = document.getElementById("dailyIcon");
-var historyBtn = document.getElementById("history-btn");
 var searchHistory = document.getElementById("searchHistory");
 var historyTitle = document.getElementById("historyTitle");
 var forecast = document.querySelectorAll(".forecast");
@@ -23,7 +22,7 @@ var dayFiveEl = document.getElementById("dayfive");
 var weather = {};
 var titleHist = false;
 var histList = [];
-var historyBtn = document.querySelector("data-search");
+var historyBtn = document.querySelector("citybutton");
 
 btnsearch.addEventListener("click", click);
 function click() {
@@ -36,26 +35,9 @@ function click() {
   dayThreeEl.textContent = "";
   dayFourEl.textContent = "";
   dayFiveEl.textContent = "";
-  // window.localStorage.setItem("history", JSON.stringify(city));
-
-  // var histCities = JSON.stringify(city);
   histList.push(city);
   console.log(histList);
-
   localStorage.setItem("data", JSON.stringify(histList));
-}
-
-$("data-search").on("click", clickHistory);
-function clickHistory() {
-  console.log("button was clicked");
-  let search = historyBtn.getAttribute("data-search");
-  console.log(search);
-  getApi(histCity);
-  dayOneEl.textContent = "";
-  dayTwoEl.textContent = "";
-  dayThreeEl.textContent = "";
-  dayFourEl.textContent = "";
-  dayFiveEl.textContent = "";
 }
 
 function getApi(city) {
@@ -153,21 +135,6 @@ function displayWeather() {
   dayFiveEl.append(dayFive);
   dayFiveEl.setAttribute("style", "display:block");
 
-  //Puts the previously searched cities in the lefthand column
-  // if (titleHist === false) {
-  //   var title = document.createElement("div");
-  //   historyTitle.append(title);
-  //   titleHist = true;
-  // }
-  // for (let i = 0; i < histList.length; i++) {
-  //   var history = document.createElement("button");
-  //   history.textContent = `${window.localStorage
-  //     .getItem("data", histList[i])
-  //     .split('"')}`;
-  //   historyBtn.append(history);
-  //   historyBtn.setAttribute("style", "display:block");
-  // }
-
   function initHistory() {
     var storedHistory = localStorage.getItem("data", histList);
     console.log(storedHistory);
@@ -189,16 +156,22 @@ function displayWeather() {
         var titleBtn = document.createElement("button");
         titleBtn.setAttribute("data", histList[i]);
         titleBtn.setAttribute("data-search", histList[i]);
+        titleBtn.setAttribute("class", "citybutton");
         titleBtn.textContent = histList[i];
         historyTitle.append(titleBtn);
         console.log(histList[i]);
       }
 
-      //  history.textContent = `${window.localStorage
-      //    .getItem("data", histList[i])
-      //    .split('"')}`;
-      //  historyBtn.append(history);
-      //  historyBtn.setAttribute("style", "display:block");
+      $(".citybutton").on("click", clickHistory);
+      function clickHistory() {
+        console.log("button was clicked");
+        getApi(histList[i]);
+        dayOneEl.textContent = "";
+        dayTwoEl.textContent = "";
+        dayThreeEl.textContent = "";
+        dayFourEl.textContent = "";
+        dayFiveEl.textContent = "";
+      }
     }
   }
   initHistory();
