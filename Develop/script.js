@@ -1,4 +1,4 @@
-let APIKey = config.APIKey;
+let conapi = config.APIKey;
 var searchinput = document.getElementById("searchcityinput");
 var btnsearch = document.getElementById("button-addon2");
 var currentdaysdata = document.getElementById("currentdaysdata");
@@ -43,10 +43,10 @@ function click() {
 function getApi(city) {
   console.log(city);
   var requestUrl =
-    "https://api.openweathermap.org/data/2.5/forecast?q=" +
+    "http://api.openweathermap.org/data/2.5/forecast?q=" +
     city +
     "&appid=" +
-    config;
+    conapi;
   var city = searchinput.value;
 
   fetch(requestUrl)
