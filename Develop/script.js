@@ -42,7 +42,7 @@ function click() {
 function getApi(city) {
   console.log(city);
   var requestUrl =
-    "http://api.openweathermap.org/data/2.5/forecast?q=" +
+    "https://api.openweathermap.org/data/2.5/forecast?q=" +
     city +
     "&appid=178072d9d277e093ead36bbfe62e0ae2";
   var city = searchinput.value;
