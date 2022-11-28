@@ -1,4 +1,4 @@
-let conapi = config.APIKey;
+var key = config.APIKey;
 var searchinput = document.getElementById("searchcityinput");
 var btnsearch = document.getElementById("button-addon2");
 var currentdaysdata = document.getElementById("currentdaysdata");
@@ -22,7 +22,7 @@ var dayFiveEl = document.getElementById("dayfive");
 var weather = {};
 var titleHist = false;
 var histList = [];
-var historyBtn = document.querySelector("citybutton");
+var historyBtn = document.querySelector(".citybutton");
 
 btnsearch.addEventListener("click", click);
 function click() {
@@ -46,9 +46,8 @@ function getApi(city) {
     "http://api.openweathermap.org/data/2.5/forecast?q=" +
     city +
     "&appid=" +
-    conapi;
+    key;
   var city = searchinput.value;
-
   fetch(requestUrl)
     .then(function (response) {
       return response.json();
@@ -62,7 +61,6 @@ function getApi(city) {
       searchinput.value = "";
     });
 }
-
 function displayWeather() {
   for (let i = 0; i < weather.data.length; i++) {
     var date = new Date(weather.data[i].dt * 1000);
@@ -72,7 +70,6 @@ function displayWeather() {
     weather.data[i].dt = newDay;
     weather.data[i].dt_txt = newDate;
   }
-
   cityNameEl.textContent = `${weather.name}`;
   currentDay.textContent = `Today: ${weather.data[0].dt}`;
   currentDescription.textContent = `Weather: ${weather.data[0].weather[0].description}`;
@@ -81,8 +78,6 @@ function displayWeather() {
   )}° F`;
   currentHumidityEl.textContent = `Humidity: ${weather.data[0].main.humidity}%`;
   currentWindEel.textContent = `Wind: ${weather.data[0].wind.speed} mph`;
-  //need to add icons to library
-  // currentIcon.textContent = `<img src="./Assets/Icons/${weather.data[0].weather[0].icon}.png" />`;
 
   //To pull 5 day forecast
   var dayOne = document.createElement("div");
@@ -94,7 +89,6 @@ function displayWeather() {
   } mph`;
   dayOneEl.append(dayOne);
   dayOneEl.setAttribute("style", "display:block");
-
   var dayTwo = document.createElement("div");
   dayTwo.setAttribute("class", "forecastDays");
   dayTwo.textContent = `${weather.data[14].dt} Temp: ${Math.floor(
@@ -104,7 +98,6 @@ function displayWeather() {
   } mph`;
   dayTwoEl.append(dayTwo);
   dayTwoEl.setAttribute("style", "display:block");
-
   var dayThree = document.createElement("div");
   dayThree.setAttribute("class", "forecastDays");
   dayThree.textContent = `${weather.data[20].dt} Temp: ${Math.floor(
@@ -114,8 +107,8 @@ function displayWeather() {
   } mph`;
   dayThreeEl.append(dayThree);
   dayThreeEl.setAttribute("style", "display:block");
-
   var dayFour = document.createElement("div");
+
   dayFour.setAttribute("class", "forecastDays");
   dayFour.textContent = `${weather.data[29].dt} Temp: ${Math.floor(
     ((weather.data[29].main.feels_like - 273) * 9) / 5 + 32
@@ -124,7 +117,6 @@ function displayWeather() {
   } mph`;
   dayFourEl.append(dayFour);
   dayFourEl.setAttribute("style", "display:block");
-
   var dayFive = document.createElement("div");
   dayFive.setAttribute("class", "forecastDays");
   dayFive.textContent = `${weather.data[37].dt} Temp: ${Math.floor(
@@ -175,7 +167,5 @@ function displayWeather() {
     }
   }
   initHistory();
-  // button.addEventListener("click", getApi);
 }
-
 // getApi(requestUrl);
