@@ -152,17 +152,17 @@ function displayWeather() {
         titleBtn.textContent = histList[i];
         historyTitle.append(titleBtn);
         console.log(histList[i]);
+      }
 
-        $(".citybutton").on("click", clickHistory);
-        function clickHistory() {
-          console.log("button was clicked");
-          getApi(histList[i]);
-          dayOneEl.textContent = "";
-          dayTwoEl.textContent = "";
-          dayThreeEl.textContent = "";
-          dayFourEl.textContent = "";
-          dayFiveEl.textContent = "";
-        }
+      $(".citybutton").on("click", clickHistory);
+      function clickHistory() {
+        console.log("button was clicked");
+        getApi(histList[i]);
+        dayOneEl.textContent = "";
+        dayTwoEl.textContent = "";
+        dayThreeEl.textContent = "";
+        dayFourEl.textContent = "";
+        dayFiveEl.textContent = "";
       }
     }
   }
